@@ -1,0 +1,24 @@
+{
+  "name": "chrome-rest-client",
+  "description": "A Simple REST client - Devtool chrome extension",
+  "main": "webpack.config.js",
+  "authors": [
+    "drklrd"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "chrome-chat",
+    "chrome-console-chat",
+    "console-chat"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}
