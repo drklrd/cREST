@@ -23,10 +23,18 @@ export default class New extends React.Component{
 					response : JSON.stringify(response.data,null,"\t"),
 					responseFieldDisabled: false
 				})
+			}else{
+				this.setState({
+					response : JSON.stringify(response,null,"\t"),
+					responseFieldDisabled: false
+				})
 			}
 		})
 		.catch((err)=>{
-			console.log(err);
+			this.setState({
+				response : JSON.stringify(err,null,"\t"),
+				responseFieldDisabled: false
+			})
 		})
 
 	}
@@ -51,8 +59,8 @@ export default class New extends React.Component{
 				<div className="row">
 					<form>
 						<div className="col-xs-2">
-								<select className="form-control" onChange={this.handleMethodChange.bind(this)}>
-									<option selected>GET</option>
+								<select className="form-control"  value={this.state.selectedMethod} onChange={this.handleMethodChange.bind(this)}>
+									<option>GET</option>
 									<option>POST</option>
 									<option>PUT</option>
 									<option>DELETE</option>
@@ -62,7 +70,7 @@ export default class New extends React.Component{
 							<input className="form-control" placeholder="Request URL" onChange={this.handleURLChange.bind(this)} />
 						</div>
 						<div className="col-xs-4">
-							<button type="button" className="btn btn-primary" onClick={this.newRequest.bind(this)}  > Send </button>
+							<button type="button" className="btn btn-primary" onClick={this.newRequest.bind(this)}> Send </button>
 						</div>
 					</form>
 
