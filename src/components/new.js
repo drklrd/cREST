@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
+import AceEditor from 'react-ace';
 
 export default class New extends React.Component{
 
 	constructor(){
 		super();
 		this.state = {
-			response : '',
+			response : 'Send a Request to get a response',
 			responseFieldDisabled : true,
 			selectedMethod : 'get'
 		}
@@ -78,7 +79,16 @@ export default class New extends React.Component{
 				<br/>
 				<div className="row">
 					<div className="col-xs-10 response-area">
-						<textarea rows="30"  className="form-control " disabled={this.state.responseFieldDisabled} value={this.state.response} placeholder="Send a new request to get a response " />
+						<AceEditor
+							mode="javascript"
+							theme="terminal"
+							name="Respose Area"
+							value={this.state.response}
+							height = "590px"
+							width = "890px"
+							fontSize = "20px"
+						/>
+
 					</div>
 				</div>
 			</div>
