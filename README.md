@@ -1,6 +1,9 @@
 # Chrome REST Client
 A chrome Devtool - REST client. 
 
+
+![alt tag](https://raw.githubusercontent.com/drklrd/cREST/master/cREST.png)
+
 # Loading the extension
 
 1. First clone or download the repo and extract (if downloaded as zip)
