@@ -18,6 +18,8 @@ export default class Navtabs extends React.Component {
 				  <div id="new" className="tab-pane fade in active">
 				    	<New/>
 				  </div>
+
+
 				  <div id="history" className="tab-pane fade">
 				    History
 				  </div>

@@ -4,5 +4,11 @@
 }
 
 .response-area{
-	height: 500px;
+	height: 50px;
 }
+
+.new-request{
+
+	margin:10px;
+}
+
