@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import AceEditor from 'react-ace';
+import AddParams from './add-params';
 
 export default class New extends React.Component{
 
@@ -9,7 +10,8 @@ export default class New extends React.Component{
 		this.state = {
 			response : 'Send a Request to get a response',
 			responseFieldDisabled : true,
-			selectedMethod : 'get'
+			selectedMethod : 'get',
+			params : []
 		}
 	}
 
@@ -53,6 +55,12 @@ export default class New extends React.Component{
 
 	}
 
+	addParams(){
+		this.setState({
+			params : this.state.params.concat(<AddParams key={this.state.params.length} />)
+		})
+	}
+
 
 	render(){
 		return(
@@ -67,22 +75,34 @@ export default class New extends React.Component{
 									<option>DELETE</option>
 								</select>
 						</div>
-						<div className="col-xs-6">
-							<input className="form-control" placeholder="Request URL" onChange={this.handleURLChange.bind(this)} />
+						<div className="col-xs-7">
+							<div className="input-group">
+								<input className="form-control" placeholder="Request URL" onChange={this.handleURLChange.bind(this)} />
+								<span className="input-group-addon pointer "  onClick={this.addParams.bind(this)} >Parameters</span>
+
+							</div>
+
 						</div>
-						<div className="col-xs-4">
+						<div className="col-xs-3">
 							<button type="button" className="btn btn-primary" onClick={this.newRequest.bind(this)}> Send </button>
 						</div>
 					</form>
+				</div>
+
+				<div>
+					{this.state.params.map((param,index)=>{
+						return param;
+					})}
 
 				</div>
+
 				<br/>
 				<div className="row">
 					<div className="col-xs-10 response-area">
 						<AceEditor
 							mode="javascript"
-							theme="terminal"
-							name="Respose Area"
+							theme="github"
+							name="Response Area"
 							value={this.state.response}
 							height = "590px"
 							width = "890px"
