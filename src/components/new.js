@@ -1,24 +1,30 @@
 import React from 'react';
 import axios from 'axios';
-import AceEditor from 'react-ace';
 import AddParams from './add-params';
 import ParamsBuilder from '../utils/params-builder';
-
+import Spinner from './spinner';
+import Editor from './ace-editor';
 export default class New extends React.Component{
 
 	constructor(){
 		super();
 		this.state = {
-			response : 'Send a Request to get a response',
+			response : 'Send a request to get response',
 			responseFieldDisabled : true,
 			selectedMethod : 'get',
 			params : [],
 			requestParamsKeys : [],
-			requestParamsValues : []
+			requestParamsValues : [],
+			requestOnRoute : false,
+			requestComplete : false
 		}
 	}
 
 	newRequest(){
+
+		this.setState({
+			requestOnRoute : true
+		})
 
 		var paramsBuilder = new ParamsBuilder(this.state.requestParamsKeys,this.state.requestParamsValues);
 		var params = paramsBuilder.build();
@@ -29,6 +35,7 @@ export default class New extends React.Component{
 		};
 
 		requestConfig.method.toLowerCase() === "get" ? requestConfig['params'] =  params : requestConfig['data'] = params;
+
 
 		axios(requestConfig)
 		.then((response)=>{
@@ -43,11 +50,21 @@ export default class New extends React.Component{
 					responseFieldDisabled: false
 				})
 			}
+			this.setState({
+				requestOnRoute : false,
+				requestComplete : true
+			})
+
 		})
 		.catch((err)=>{
 			this.setState({
 				response : JSON.stringify(err,null,"\t"),
 				responseFieldDisabled: false
+			})
+
+			this.setState({
+				requestOnRoute : false,
+				requestComplete : true
 			})
 		})
 
@@ -85,6 +102,18 @@ export default class New extends React.Component{
 
 
 	render(){
+
+		if(this.state.requestOnRoute){
+			var spinner = <Spinner/>;
+		}
+
+		if(this.state.requestComplete && !this.state.requestOnRoute){
+			var editor = <Editor response={this.state.response} />
+
+		}else if(!this.state.requestOnRoute) {
+			var editor = <div className='info'>Send a request to get response.</div>
+		}
+
 		return(
 			<div className="container-fluid new-request">
 				<div className="row">
@@ -104,12 +133,19 @@ export default class New extends React.Component{
 
 							</div>
 
+
+
 						</div>
 						<div className="col-xs-3">
-							<button type="button" className="btn btn-primary" onClick={this.newRequest.bind(this)}> Send </button>
+							<button type="button" className="btn btn-primary" onClick={this.newRequest.bind(this)}> Send
+							</button>
+
 						</div>
 					</form>
 				</div>
+
+
+
 
 				<div>
 					{this.state.params.map((param,index)=>{
@@ -118,18 +154,13 @@ export default class New extends React.Component{
 				</div>
 
 				<br/>
+
+				{spinner}
+
 				<div className="row">
-					<div className="col-xs-10 response-area">
-						<AceEditor
-							mode="javascript"
-							theme="github"
-							name="Response Area"
-							value={this.state.response}
-							height = "590px"
-							width = "890px"
-							fontSize = "20px"
-							editorProps={{$blockScrolling: true}}
-						/>
+					<div className="col-xs-10">
+
+						{editor}
 
 					</div>
 				</div>
