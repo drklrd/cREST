@@ -9,7 +9,7 @@ export  default class AddParams extends React.Component{
                 <div className="col-xs-6">
                     <div className="input-group">
                         <span className="input-group-addon pointer "  >Key</span>
-                        <input className="form-control" placeholder="Type key"/>
+                        <input className="form-control" placeholder="Type key" onChange={this.props.handler.bind(this,'key',this.props.paramid)} />
                     </div>
 
                 </div>
@@ -17,7 +17,7 @@ export  default class AddParams extends React.Component{
                 <div className="col-xs-6">
                     <div className="input-group">
                         <span className="input-group-addon pointer "  >Value</span>
-                        <input className="form-control" placeholder="Type value"/>
+                        <input className="form-control" placeholder="Type value" onChange={this.props.handler.bind(this,'value',this.props.paramid)} />
                     </div>
 
                 </div>

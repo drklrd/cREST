@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import AceEditor from 'react-ace';
 import AddParams from './add-params';
+import ParamsBuilder from '../utils/params-builder';
 
 export default class New extends React.Component{
 
@@ -11,15 +12,25 @@ export default class New extends React.Component{
 			response : 'Send a Request to get a response',
 			responseFieldDisabled : true,
 			selectedMethod : 'get',
-			params : []
+			params : [],
+			requestParamsKeys : [],
+			requestParamsValues : []
 		}
 	}
 
 	newRequest(){
-		axios({
+
+		var paramsBuilder = new ParamsBuilder(this.state.requestParamsKeys,this.state.requestParamsValues);
+		var params = paramsBuilder.build();
+
+		var requestConfig = {
 			method : this.state.selectedMethod,
 			url : this.state.requestURL
-		})
+		};
+
+		requestConfig.method.toLowerCase() === "get" ? requestConfig['params'] =  params : requestConfig['data'] = params;
+
+		axios(requestConfig)
 		.then((response)=>{
 			if(response.data.success){
 				this.setState({
@@ -55,9 +66,20 @@ export default class New extends React.Component{
 
 	}
 
+	handleParamsChange(type,paramid,event){
+
+		if(type === "key"){
+			this.state.requestParamsKeys[paramid] = event.target.value;
+		}else{
+			this.state.requestParamsValues[paramid] = event.target.value;
+		}
+
+
+	}
+
 	addParams(){
 		this.setState({
-			params : this.state.params.concat(<AddParams key={this.state.params.length} />)
+			params : this.state.params.concat(<AddParams paramid={this.state.params.length} handler={this.handleParamsChange.bind(this)} key={this.state.params.length} />)
 		})
 	}
 
@@ -93,7 +115,6 @@ export default class New extends React.Component{
 					{this.state.params.map((param,index)=>{
 						return param;
 					})}
-
 				</div>
 
 				<br/>
@@ -107,6 +128,7 @@ export default class New extends React.Component{
 							height = "590px"
 							width = "890px"
 							fontSize = "20px"
+							editorProps={{$blockScrolling: true}}
 						/>
 
 					</div>
