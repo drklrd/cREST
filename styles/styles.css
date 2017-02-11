@@ -1,3 +1,4 @@
+
 .rest-client{
 
 	width : 100%;
@@ -22,4 +23,8 @@
 
 .info{
 	font-weight:bold;
+}
+
+.font-30{
+	font-size: 30px;
 }

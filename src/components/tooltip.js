@@ -5,7 +5,7 @@ export  default class Tooltip extends React.Component{
         return(
 
             <a href="#" data-toggle="tooltip" title={this.props.title}>
-                {this.props.text}
+                <i className={this.props.glyphicon}></i>
             </a>
 
         )

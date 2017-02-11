@@ -141,7 +141,10 @@ export default class New extends React.Component{
 						<div className="col-xs-7">
 							<div className="input-group">
 								<input className="form-control" placeholder="Request URL" onChange={this.handleURLChange.bind(this)} />
-								<span className="input-group-addon pointer "  onClick={this.addParams.bind(this)} >Parameters</span>
+								<span className="input-group-addon pointer "  onClick={this.addParams.bind(this)} >
+									<span className="glyphicon glyphicon-plus-sign"></span> &nbsp;
+									 Parameters
+								</span>
 
 							</div>
 
@@ -170,7 +173,7 @@ export default class New extends React.Component{
 				{spinner}
 
 				<div className="row">
-					<div className="col-xs-10">
+					<div className="col-xs-12">
 
 						{editor}
 

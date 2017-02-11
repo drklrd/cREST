@@ -8,7 +8,8 @@ export  default class AddParams extends React.Component{
 
                 <div className="col-xs-6">
                     <div className="col-xs-1">
-                        <button type="button" className="btn btn-primary" onClick={this.props.remove.bind(this,this.props.paramid)} > X
+                        <button type="button" className="btn btn-primary" onClick={this.props.remove.bind(this,this.props.paramid)} >
+                            <span className="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
                     <div className="col-xs-11">

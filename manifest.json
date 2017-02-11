@@ -6,6 +6,9 @@
 	"icons": {
 		"48": "img/icon48.png"
 	},
-	"devtools_page": "devtools.html"
+	"devtools_page": "devtools.html",
+	"permissions" : [
+		"storage"
+	]
 	
 }
