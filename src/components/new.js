@@ -94,9 +94,21 @@ export default class New extends React.Component{
 
 	}
 
+	removeParam(paramid){
+
+		this.state.params.splice(paramid,1);
+
+		this.setState({
+			params : this.state.params
+
+		})
+
+
+	}
+
 	addParams(){
 		this.setState({
-			params : this.state.params.concat(<AddParams paramid={this.state.params.length} handler={this.handleParamsChange.bind(this)} key={this.state.params.length} />)
+			params : this.state.params.concat(<AddParams paramid={this.state.params.length} handler={this.handleParamsChange.bind(this)} remove={this.removeParam.bind(this)} key={this.state.params.length} />)
 		})
 	}
 

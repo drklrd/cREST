@@ -10,7 +10,7 @@ export  default class Editor extends React.Component{
                 theme="github"
                 name="Response Area"
                 value={this.props.response}
-                height = "590px"
+                height = "790px"
                 width = "890px"
                 fontSize = "20px"
                 editorProps={{$blockScrolling: true}}
