@@ -18,7 +18,7 @@ export  default class Editor extends React.Component{
                         value={this.props.response}
                         height = "790px"
                         width = "100%"
-                        fontSize = "20px"
+                        fontSize = "13px"
                         editorProps={{$blockScrolling: true}}
                     />
 

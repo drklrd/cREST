@@ -1,9 +1,11 @@
 import React from 'react';
-import axios from 'axios';
+import Axios from 'axios';
 import AddParams from './add-params';
 import ParamsBuilder from '../utils/params-builder';
 import Spinner from './spinner';
 import Editor from './ace-editor';
+import ApiCall from '../utils/api-call';
+
 export default class New extends React.Component{
 
 	constructor(){
@@ -36,8 +38,10 @@ export default class New extends React.Component{
 
 		requestConfig.method.toLowerCase() === "get" ? requestConfig['params'] =  params : requestConfig['data'] = params;
 
+		var request = new ApiCall(requestConfig);
 
-		axios(requestConfig)
+
+		request.fire(requestConfig)
 		.then((response)=>{
 			if(response.data.success){
 				this.setState({
