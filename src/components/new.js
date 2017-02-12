@@ -38,11 +38,11 @@ export default class New extends React.Component{
 		};
 
 		requestConfig.method.toLowerCase() === "get" ? requestConfig['params'] =  params : requestConfig['data'] = params;
-
+		
 		var request = new ApiCall(requestConfig);
 
 
-		request.fire(requestConfig)
+		request.fire()
 		.then((response)=>{
 			if(response.data.success){
 				this.setState({
@@ -90,10 +90,12 @@ export default class New extends React.Component{
 
 	handleParamsChange(type,paramid,event){
 
+		var changeOn = _.findIndex(this.state.params,{key:(paramid.toString())});
+
 		if(type === "key"){
-			this.state.requestParamsKeys[paramid] = event.target.value;
+			this.state.requestParamsKeys[changeOn] = event.target.value;
 		}else{
-			this.state.requestParamsValues[paramid] = event.target.value;
+			this.state.requestParamsValues[changeOn] = event.target.value;
 		}
 
 
