@@ -5,6 +5,7 @@ import ParamsBuilder from '../utils/params-builder';
 import Spinner from './spinner';
 import Editor from './ace-editor';
 import ApiCall from '../utils/api-call';
+import _ from 'underscore';
 
 export default class New extends React.Component{
 
@@ -100,8 +101,8 @@ export default class New extends React.Component{
 
 	removeParam(paramid){
 
-		this.state.params.splice(paramid,1);
-
+		var where = _.findIndex(this.state.params,{key:(paramid.toString())})
+		this.state.params.splice(where,1);
 		this.setState({
 			params : this.state.params
 
@@ -111,8 +112,9 @@ export default class New extends React.Component{
 	}
 
 	addParams(){
+		var uniqueKey = new Date().getTime();
 		this.setState({
-			params : this.state.params.concat(<AddParams paramid={this.state.params.length} handler={this.handleParamsChange.bind(this)} remove={this.removeParam.bind(this)} key={this.state.params.length} />)
+			params : this.state.params.concat(<AddParams paramid={uniqueKey} handler={this.handleParamsChange.bind(this)} remove={this.removeParam.bind(this)} key={uniqueKey} />)
 		})
 	}
 
