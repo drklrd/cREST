@@ -1,3 +1,12 @@
+body * {
+	/*color : #2f4f4f;*/
+	font-family: 'Roboto';
+}
+
+@font-face {
+	font-family: "Roboto";
+	src: url(../fonts/Roboto-Regular.ttf);
+}
 
 .rest-client{
 
@@ -23,8 +32,17 @@
 
 .info{
 	font-weight:bold;
+	margin-left: 35%;
+	margin-top: 20%;
+	font-size: 21px;
+	color: #2f4f4f ;
+
 }
 
 .font-30{
 	font-size: 30px;
+}
+
+.whitish{
+	color : #ffffff !important;
 }

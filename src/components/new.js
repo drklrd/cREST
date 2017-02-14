@@ -25,6 +25,8 @@ export default class New extends React.Component{
 
 	newRequest(){
 
+		if( !(this.state.requestURL && this.state.requestURL.length) ) return;
+
 		this.setState({
 			requestOnRoute : true
 		})
@@ -38,7 +40,7 @@ export default class New extends React.Component{
 		};
 
 		requestConfig.method.toLowerCase() === "get" ? requestConfig['params'] =  params : requestConfig['data'] = params;
-		
+
 		var request = new ApiCall(requestConfig);
 
 
@@ -120,6 +122,10 @@ export default class New extends React.Component{
 		})
 	}
 
+	addHeaders(){
+
+	}
+
 
 	render(){
 
@@ -160,15 +166,22 @@ export default class New extends React.Component{
 
 						</div>
 						<div className="col-xs-3">
-							<button type="button" className="btn btn-primary" onClick={this.newRequest.bind(this)}> Send
-							</button>
+
+							<div className="col-xs-4">
+								<button type="button" className="btn btn-primary" onClick={this.newRequest.bind(this)}> Send
+								</button>
+							</div>
+
+
+
+							<div className="col-xs-6">
+								<button type="button" className="btn btn-primary" onClick={this.addHeaders.bind(this)}> Headers
+								</button>
+							</div>
 
 						</div>
 					</form>
 				</div>
-
-
-
 
 				<div>
 					{this.state.params.map((param,index)=>{

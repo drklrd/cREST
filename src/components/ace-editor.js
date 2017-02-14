@@ -10,7 +10,7 @@ export  default class Editor extends React.Component{
             <div>
 
 
-                <div className="col-xs-12">
+                <div className="col-xs-12 whitish">
                     <AceEditor
                         mode="javascript"
                         theme="monokai"
