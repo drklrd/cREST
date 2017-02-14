@@ -16,8 +16,11 @@ export default class New extends React.Component{
 			responseFieldDisabled : true,
 			selectedMethod : 'get',
 			params : [],
+			headers : [],
 			requestParamsKeys : [],
 			requestParamsValues : [],
+			requestHeaderKeys : [],
+			requestHeaderValues : [],
 			requestOnRoute : false,
 			requestComplete : false
 		}
@@ -31,8 +34,9 @@ export default class New extends React.Component{
 			requestOnRoute : true
 		})
 
-		var paramsBuilder = new ParamsBuilder(this.state.requestParamsKeys,this.state.requestParamsValues);
-		var params = paramsBuilder.build();
+		var params = new ParamsBuilder(this.state.requestParamsKeys,this.state.requestParamsValues).build();
+
+		var headers = new ParamsBuilder(this.state.requestHeaderKeys,this.state.requestHeaderValues).build();
 
 		var requestConfig = {
 			method : this.state.selectedMethod,
@@ -90,41 +94,47 @@ export default class New extends React.Component{
 
 	}
 
-	handleParamsChange(type,paramid,event){
+	handleParamsChange(type,paramid,addedtype,event){
 
-		var changeOn = _.findIndex(this.state.params,{key:(paramid.toString())});
+		var changeOn = _.findIndex(this.state[addedtype],{key:(paramid.toString())});
 
 		if(type === "key"){
-			this.state.requestParamsKeys[changeOn] = event.target.value;
+			var toChange = addedtype === "params" ? this.state.requestParamsKeys : this.state.requestHeaderKeys;
+			toChange[changeOn] = event.target.value;
 		}else{
-			this.state.requestParamsValues[changeOn] = event.target.value;
+			var toChange = addedtype === "params" ? this.state.requestParamsValues : this.state.requestHeaderValues;
+			toChange[changeOn] = event.target.value;
 		}
 
 
-	}
 
-	removeParam(paramid){
 
-		var where = _.findIndex(this.state.params,{key:(paramid.toString())})
-		this.state.params.splice(where,1);
-		this.setState({
-			params : this.state.params
-
-		})
 
 
 	}
 
-	addParams(){
+	removeParam(paramid,addedtype){
+
+		var where = _.findIndex(this.state[addedtype],{key:(paramid.toString())})
+		this.state[addedtype].splice(where,1);
+		var stateChange = {};
+		stateChange[addedtype] = this.state[addedtype]
+		this.setState(stateChange);
+
+
+
+
+	}
+
+	addParams(type){
 		var uniqueKey = new Date().getTime();
-		this.setState({
-			params : this.state.params.concat(<AddParams paramid={uniqueKey} handler={this.handleParamsChange.bind(this)} remove={this.removeParam.bind(this)} key={uniqueKey} />)
-		})
-	}
+		var stateChange = {};
+		stateChange[type] = this.state[type].concat(<AddParams paramid={uniqueKey}  addedtype={type} handler={this.handleParamsChange.bind(this)} remove={this.removeParam.bind(this)} key={uniqueKey} />);
 
-	addHeaders(){
+		this.setState(stateChange);
 
 	}
+
 
 
 	render(){
@@ -155,7 +165,7 @@ export default class New extends React.Component{
 						<div className="col-xs-7">
 							<div className="input-group">
 								<input className="form-control" placeholder="Request URL" onChange={this.handleURLChange.bind(this)} />
-								<span className="input-group-addon pointer "  onClick={this.addParams.bind(this)} >
+								<span className="input-group-addon pointer "  onClick={this.addParams.bind(this,'params')} >
 									<span className="glyphicon glyphicon-plus-sign"></span> &nbsp;
 									 Parameters
 								</span>
@@ -168,23 +178,32 @@ export default class New extends React.Component{
 						<div className="col-xs-3">
 
 							<div className="col-xs-4">
-								<button type="button" className="btn btn-primary" onClick={this.newRequest.bind(this)}> Send
+								<button type="button" className="btn btn-success" onClick={this.newRequest.bind(this)}>
+									<span className="glyphicon glyphicon-send"></span> &nbsp;
 								</button>
 							</div>
 
 
 
 							<div className="col-xs-6">
-								<button type="button" className="btn btn-primary" onClick={this.addHeaders.bind(this)}> Headers
+								<button type="button" className="btn btn-primary" onClick={this.addParams.bind(this,'headers')}>
+									<span className="glyphicon glyphicon-plus-sign"></span> &nbsp;
+									Headers
 								</button>
 							</div>
 
 						</div>
 					</form>
 				</div>
-
+				<br/>
 				<div>
 					{this.state.params.map((param,index)=>{
+						return param;
+					})}
+				</div>
+				<hr/>
+				<div>
+					{this.state.headers.map((param,index)=>{
 						return param;
 					})}
 				</div>
