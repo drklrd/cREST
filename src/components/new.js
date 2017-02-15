@@ -22,11 +22,18 @@ export default class New extends React.Component{
 			requestHeaderKeys : [],
 			requestHeaderValues : [],
 			requestOnRoute : false,
-			requestComplete : false
+			requestComplete : false,
+			groupOpenHeader : true,
+			groupOpenParameter : true
 		}
 	}
 
 	newRequest(){
+
+		this.setState({
+			groupOpenHeader : !this.state.groupOpenHeader,
+			groupOpenParameter : !this.state.groupOpenParameter
+		})
 
 		if( !(this.state.requestURL && this.state.requestURL.length) ) return;
 
@@ -46,6 +53,8 @@ export default class New extends React.Component{
 		requestConfig.method.toLowerCase() === "get" ? requestConfig['params'] =  params : requestConfig['data'] = params;
 
 		var request = new ApiCall(requestConfig);
+
+
 
 
 		request.fire()
@@ -133,6 +142,7 @@ export default class New extends React.Component{
 
 		this.setState(stateChange);
 
+
 	}
 
 
@@ -148,6 +158,58 @@ export default class New extends React.Component{
 
 		}else if(!this.state.requestOnRoute) {
 			var editor = <div className='info'>Send a request to get response.</div>
+		}
+
+		var classTagParameter = "panel-collapse collapse " + (this.state.groupOpenParameter ? ' in' : '');
+
+		if(this.state.params.length){
+			var paramsGroup = 	<div className="panel-group">
+									<div className="panel panel-default">
+										<div className="panel-heading">
+											<h4 className="panel-title">
+												<a data-toggle="collapse" href="#collapseparams">Parameters</a>
+											</h4>
+										</div>
+										<div id="collapseparams" className={classTagParameter}>
+											<br/>
+											{this.state.params.map((param,index)=>{
+												return param;
+											})}
+											<br/>
+										</div>
+									</div>
+								</div>
+
+
+
+
+		}
+
+		var classTagHeader = "panel-collapse collapse " + (this.state.groupOpenHeader ? ' in' : '');
+
+		if(this.state.headers.length){
+			var headersGroup = 	<div className="panel-group">
+									<div className="panel panel-default">
+										<div className="panel-heading">
+											<h4 className="panel-title">
+												<a data-toggle="collapse" href="#collapseheaders">Headers</a>
+											</h4>
+										</div>
+										<div id="collapseheaders" className={classTagHeader}>
+											<br/>
+											<div>
+												{this.state.headers.map((param,index)=>{
+													return param;
+												})}
+											</div>
+
+											<br/>
+										</div>
+									</div>
+								</div>
+
+
+
 		}
 
 		return(
@@ -196,16 +258,13 @@ export default class New extends React.Component{
 					</form>
 				</div>
 				<br/>
+
 				<div>
-					{this.state.params.map((param,index)=>{
-						return param;
-					})}
+					{paramsGroup}
 				</div>
-				<hr/>
+
 				<div>
-					{this.state.headers.map((param,index)=>{
-						return param;
-					})}
+					{headersGroup}
 				</div>
 
 				<br/>
