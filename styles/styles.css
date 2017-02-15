@@ -46,3 +46,7 @@ body * {
 .whitish{
 	color : #ffffff !important;
 }
+
+.required{
+	color : #8B0000;
+}

@@ -227,12 +227,14 @@ export default class New extends React.Component{
 						<div className="col-xs-7">
 							<div className="input-group">
 								<input className="form-control" placeholder="Request URL" onChange={this.handleURLChange.bind(this)} />
+
 								<span className="input-group-addon pointer "  onClick={this.addParams.bind(this,'params')} >
 									<span className="glyphicon glyphicon-plus-sign"></span> &nbsp;
 									 Parameters
 								</span>
 
 							</div>
+							<span className="required"> * Required </span>
 
 
 
@@ -240,7 +242,7 @@ export default class New extends React.Component{
 						<div className="col-xs-3">
 
 							<div className="col-xs-4">
-								<button type="button" className="btn btn-success" onClick={this.newRequest.bind(this)}>
+								<button disabled={!(this.state.requestURL && this.state.requestURL.length)} type="button" className="btn btn-success" onClick={this.newRequest.bind(this)}>
 									<span className="glyphicon glyphicon-send"></span> &nbsp;
 								</button>
 							</div>
