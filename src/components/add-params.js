@@ -3,7 +3,7 @@ import {Typeahead} from 'react-bootstrap-typeahead';
 
 
 const headerKeyValues = ['Authorization','Content-Type','Content-Length','Accept'];
-const headerValueValues = ['application/json','application/xml','text/plain']
+const headerValueValues = ['application/json','application/xml','text/plain'];
 
 export  default class AddParams extends React.Component{
 

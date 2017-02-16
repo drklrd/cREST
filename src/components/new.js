@@ -160,11 +160,11 @@ export default class New extends React.Component{
 		var classTagParameter = "panel-collapse collapse " + (this.state.groupOpenParameter ? ' in' : '');
 
 		if(this.state.params.length){
-			var paramsGroup = 	<div className="panel-group">
+			var paramsGroup = 	<div className="panel-group" id="accordionparams">
 									<div className="panel panel-default">
 										<div className="panel-heading">
 											<h4 className="panel-title">
-												<a data-toggle="collapse" href="#collapseparams">Parameters</a>
+												<a className="accordion-toggle" data-toggle="collapse" data-parent="#accordionparams" href="#collapseparams">Parameters</a>
 											</h4>
 										</div>
 										<div id="collapseparams" className={classTagParameter}>
@@ -185,11 +185,11 @@ export default class New extends React.Component{
 		var classTagHeader = "panel-collapse collapse " + (this.state.groupOpenHeader ? ' in' : '');
 
 		if(this.state.headers.length){
-			var headersGroup = 	<div className="panel-group">
+			var headersGroup = 	<div className="panel-group" id="accordionheaders">
 									<div className="panel panel-default">
 										<div className="panel-heading">
 											<h4 className="panel-title">
-												<a data-toggle="collapse" href="#collapseheaders">Headers</a>
+												<a className="accordion-toggle" data-toggle="collapse" data-parent="#accordionheaders" href="#collapseheaders">Headers</a>
 											</h4>
 										</div>
 										<div id="collapseheaders" className={classTagHeader}>
