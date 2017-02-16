@@ -1,7 +1,27 @@
 import  React from 'react';
+import {Typeahead} from 'react-bootstrap-typeahead';
+
+
+const headerKeyValues = ['Authorization','Content-Type','Content-Length','Accept'];
+const headerValueValues = ['application/json','application/xml','text/plain']
 
 export  default class AddParams extends React.Component{
+
+
+
+    _handleChange(directvalue){
+        this.props.handler('key',this.props.paramid,this.props.addedtype,directvalue);
+    }
+
     render(){
+        if(this.props.addedtype === "params"){
+            var inputElementKey = <input className="form-control" placeholder={"Type " + this.props.addedtype + " key"} onChange={this.props.handler.bind(this,'key',this.props.paramid,this.props.addedtype)} />
+            var inputElementValue = <input className="form-control" placeholder={"Type " + this.props.addedtype + " value"} onChange={this.props.handler.bind(this,'value',this.props.paramid,this.props.addedtype)} />
+        }else{
+            var inputElementKey = <Typeahead  options={headerKeyValues}   placeholder={"Type " + this.props.addedtype + " key"} onChange={this._handleChange.bind(this)}  />
+            var inputElementValue = <Typeahead  options={headerValueValues}   placeholder= {"Type " + this.props.addedtype + " value"} onChange={this._handleChange.bind(this)}  />
+        }
+
         return(
 
             <div className="row params">
@@ -13,9 +33,8 @@ export  default class AddParams extends React.Component{
                         </button>
                     </div>
                     <div className="col-xs-11">
-                        <div className="input-group">
-                            <span className="input-group-addon pointer "  >Key</span>
-                            <input className="form-control" placeholder={"Type " + this.props.addedtype + " key"} onChange={this.props.handler.bind(this,'key',this.props.paramid,this.props.addedtype)} />
+                        <div >
+                            {inputElementKey}
                         </div>
                     </div>
 
@@ -25,9 +44,8 @@ export  default class AddParams extends React.Component{
 
                 <div className="col-xs-6">
                     <div className="col-xs-11">
-                        <div className="input-group">
-                            <span className="input-group-addon pointer "  >Value</span>
-                            <input className="form-control" placeholder={"Type " + this.props.addedtype + " value"} onChange={this.props.handler.bind(this,'value',this.props.paramid,this.props.addedtype)} />
+                        <div >
+                            {inputElementValue}
                         </div>
                     </div>
 

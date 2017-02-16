@@ -103,24 +103,21 @@ export default class New extends React.Component{
 
 	}
 
-	handleParamsChange(type,paramid,addedtype,event){
+	handleParamsChange(type,paramid,addedtype,value){
 
 		var changeOn = _.findIndex(this.state[addedtype],{key:(paramid.toString())});
 
 		if(type === "key"){
 			var toChange = addedtype === "params" ? this.state.requestParamsKeys : this.state.requestHeaderKeys;
-			toChange[changeOn] = event.target.value;
 		}else{
 			var toChange = addedtype === "params" ? this.state.requestParamsValues : this.state.requestHeaderValues;
-			toChange[changeOn] = event.target.value;
 		}
 
-
-
-
-
+		toChange[changeOn] =  (value && value.target && value.target.value)  ? value.target.value : value;
 
 	}
+
+
 
 	removeParam(paramid,addedtype){
 
