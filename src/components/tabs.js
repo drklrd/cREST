@@ -1,5 +1,6 @@
 import React from 'react';
 import New from './new';
+import History from './history';
 
 export default class Navtabs extends React.Component {
 
@@ -21,7 +22,7 @@ export default class Navtabs extends React.Component {
 
 
 				  <div id="history" className="tab-pane fade">
-				    History
+				    	<History />
 				  </div>
 				</div>
 

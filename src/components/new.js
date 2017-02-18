@@ -28,6 +28,25 @@ export default class New extends React.Component{
 		}
 	}
 
+	saveLinks(requestConfig) {
+
+
+
+		chrome.storage.local.get('requests', (result) => {
+
+			if (!(result && result.requests && result.requests.length)) {
+				var arr = [];
+			}else{
+				var arr = result.requests;
+			}
+
+			chrome.storage.local.set({
+				'requests': arr.concat(requestConfig)
+			})
+
+		})
+	}
+
 	newRequest(){
 
 		this.setState({
@@ -51,6 +70,7 @@ export default class New extends React.Component{
 		};
 
 		requestConfig.method.toLowerCase() === "get" ? requestConfig['params'] =  params : requestConfig['data'] = params;
+		requestConfig['headers'] = headers;
 
 		var request = new ApiCall(requestConfig);
 
@@ -62,13 +82,12 @@ export default class New extends React.Component{
 
 			this.setState({
 				response : JSON.stringify(response.data,null,"\t"),
-				responseFieldDisabled: false
-			})
-
-			this.setState({
+				responseFieldDisabled: false,
 				requestOnRoute : false,
 				requestComplete : true
 			})
+
+			this.saveLinks(requestConfig);
 
 		})
 		.catch((err)=>{
