@@ -8,7 +8,9 @@
 	},
 	"devtools_page": "devtools.html",
 	"permissions" : [
-		"storage"
+		"storage",
+		"<all_urls>",
+		"http://*/*"
 	]
 	
 }

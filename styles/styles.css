@@ -66,3 +66,10 @@ body * {
 	/* symbol for "collapsed" panels */
 	content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }
+
+.request-copied{
+	float: right;
+	color : #2E8B57;
+	background-color: #d3d3d3;
+	padding: 7px;
+}

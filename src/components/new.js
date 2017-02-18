@@ -87,19 +87,23 @@ export default class New extends React.Component{
 				requestComplete : true
 			})
 
+			requestConfig.statusCode = response.status;
+
 			this.saveLinks(requestConfig);
 
 		})
 		.catch((err)=>{
+
+			requestConfig.statusCode = 'Failed';
+			this.saveLinks(requestConfig);
 			this.setState({
 				response : JSON.stringify(err,null,"\t"),
-				responseFieldDisabled: false
-			})
-
-			this.setState({
+				responseFieldDisabled: false,
 				requestOnRoute : false,
 				requestComplete : true
 			})
+
+
 		})
 
 	}
