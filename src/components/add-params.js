@@ -26,13 +26,13 @@ export  default class AddParams extends React.Component{
 
             <div className="row params">
 
-                <div className="col-xs-6">
-                    <div className="col-xs-1">
+                <div className="col-md-6 col-xs-12">
+                    <div className="col-md-1 col-xs-12">
                         <button type="button" className="btn btn-danger" onClick={this.props.remove.bind(this,this.props.paramid,this.props.addedtype)} >
                             <span className="glyphicon glyphicon-remove whitish"></span>
                         </button>
                     </div>
-                    <div className="col-xs-11">
+                    <div className="col-md-11 col-xs-12">
                         <div >
                             {inputElementKey}
                         </div>
@@ -42,8 +42,8 @@ export  default class AddParams extends React.Component{
 
                 </div>
 
-                <div className="col-xs-6">
-                    <div className="col-xs-11">
+                <div className="col-md-6 col-xs-12">
+                    <div className="col-md-11 col-xs-12">
                         <div >
                             {inputElementValue}
                         </div>

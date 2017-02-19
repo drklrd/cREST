@@ -263,7 +263,7 @@ export default class New extends React.Component{
 				<div className="row">
 
 					<form>
-						<div className="col-xs-2">
+						<div className="col-md-2 col-sm-12 col-xs-12">
 								<select className="form-control"  value={this.state.selectedMethod} onChange={this.handleMethodChange.bind(this)}>
 									<option>GET</option>
 									<option>POST</option>
@@ -271,16 +271,15 @@ export default class New extends React.Component{
 									<option>DELETE</option>
 								</select>
 						</div>
-						<div className="col-xs-6">
+
+						<div className="col-md-6 col-sm-12 col-xs-12" >
 							<ReactDatalist placeholder="Request URL * (Required)" className="form-control" list="request" options={this.state.previousUrls} forcePoly={true} autoPosition={false} onInputChange={this.handleURLChange.bind(this)}  onOptionSelected={this.handleURLSelected.bind(this)} />
 
-
-
-
 						</div>
-						<div className="col-xs-4">
 
-							<div className="col-xs-2">
+						<div className="col-md-4 col-sm-12 col-xs-12">
+
+							<div className="col-md-2 col-sm-6 col-xs-3" >
 								<button disabled={!(this.state.requestURL && this.state.requestURL.length)} type="button" className="btn btn-success" onClick={this.newRequest.bind(this)}>
 									<span className="glyphicon glyphicon-send"></span> &nbsp;
 								</button>
@@ -288,29 +287,29 @@ export default class New extends React.Component{
 
 
 
-							<div className="col-xs-10">
-								<div className="col-xs-6">
+							<div className="col-md-10 col-sm-6 col-xs-9">
+								<div className="col-md-6 col-sm-6 col-xs-4">
 									<button type="button" className="btn btn-primary" onClick={this.addParams.bind(this,'headers')}>
 										<span className="glyphicon glyphicon-plus-sign"></span> &nbsp;
 										Headers
 									</button>
 								</div>
 
+								<div className="col-md-6 col-sm-6 col-xs-2"></div>
 
-								<div className="col-xs-6">
+
+								<div className="col-md-6 col-sm-6 col-xs-4">
 									<button type="button" className="btn btn-warning" onClick={this.addParams.bind(this,'params')}>
 										<span className="glyphicon glyphicon-plus-sign"></span> &nbsp;
 										Parameters
 									</button>
-								
-								</div>
-								
 
-								
+								</div>
 
 							</div>
 
 						</div>
+
 					</form>
 				</div>
 				<br/>
@@ -328,7 +327,7 @@ export default class New extends React.Component{
 				{spinner}
 
 				<div className="row">
-					<div className="col-xs-12">
+					<div className="col-md-12">
 
 						{editor}
 

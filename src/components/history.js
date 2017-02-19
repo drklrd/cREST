@@ -101,7 +101,7 @@ export default class History extends React.Component{
         return(
             <div className="container-fluid new-request">
                 <div className="row">
-                    <div className="col-xs-12">
+                    <div className="col-xs-12 col-xs-12">
                         {copiedtag}
                         <table className="table">
 
