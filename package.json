@@ -27,6 +27,7 @@
     "react": "^15.4.2",
     "react-ace": "^4.1.4",
     "react-bootstrap-typeahead": "^1.0.2",
+    "react-datalist": "^4.0.0",
     "react-dom": "^15.4.2",
     "underscore": "^1.8.3"
   }

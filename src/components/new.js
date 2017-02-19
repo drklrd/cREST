@@ -6,6 +6,9 @@ import Spinner from './spinner';
 import Editor from './ace-editor';
 import ApiCall from '../utils/api-call';
 import _ from 'underscore';
+import ReactDatalist from 'react-datalist';
+
+var options = ['apple','orange','pear','pineapple','melon']
 
 export default class New extends React.Component{
 
@@ -24,7 +27,9 @@ export default class New extends React.Component{
 			requestOnRoute : false,
 			requestComplete : false,
 			groupOpenHeader : true,
-			groupOpenParameter : true
+			groupOpenParameter : true,
+			previousUrls : [],
+			requestUrl : ''
 		}
 	}
 
@@ -45,6 +50,28 @@ export default class New extends React.Component{
 			})
 
 		})
+	}
+
+	componentWillMount(){
+		this.getHistory();
+	}
+
+	getHistory(){
+		chrome.storage.local.get('requests', (result) => {
+
+			if (!(result && result.requests && result.requests.length)) {
+				var arr = [];
+			}else{
+				var arr = result.requests;
+			}
+
+			this.setState({
+				previousUrls : arr.map(function(request){
+					return request.url;
+				})
+			});
+
+		});
 	}
 
 	newRequest(){
@@ -73,8 +100,6 @@ export default class New extends React.Component{
 		requestConfig['headers'] = headers;
 
 		var request = new ApiCall(requestConfig);
-
-
 
 
 		request.fire()
@@ -111,6 +136,12 @@ export default class New extends React.Component{
 	handleURLChange(e){
 		this.setState({
 			requestURL : e.target.value
+		});
+	}
+
+	handleURLSelected(url){
+		this.setState({
+			requestURL : url
 		});
 	}
 
@@ -230,6 +261,7 @@ export default class New extends React.Component{
 		return(
 			<div className="container-fluid new-request">
 				<div className="row">
+
 					<form>
 						<div className="col-xs-2">
 								<select className="form-control"  value={this.state.selectedMethod} onChange={this.handleMethodChange.bind(this)}>
@@ -239,24 +271,16 @@ export default class New extends React.Component{
 									<option>DELETE</option>
 								</select>
 						</div>
-						<div className="col-xs-7">
-							<div className="input-group">
-								<input className="form-control" placeholder="Request URL" onChange={this.handleURLChange.bind(this)} />
+						<div className="col-xs-6">
+							<ReactDatalist placeholder="Request URL * (Required)" className="form-control" list="request" options={this.state.previousUrls} forcePoly={true} autoPosition={false} onInputChange={this.handleURLChange.bind(this)}  onOptionSelected={this.handleURLSelected.bind(this)} />
 
-								<span className="input-group-addon pointer "  onClick={this.addParams.bind(this,'params')} >
-									<span className="glyphicon glyphicon-plus-sign"></span> &nbsp;
-									 Parameters
-								</span>
-
-							</div>
-							<span className="required"> * Required </span>
 
 
 
 						</div>
-						<div className="col-xs-3">
+						<div className="col-xs-4">
 
-							<div className="col-xs-4">
+							<div className="col-xs-2">
 								<button disabled={!(this.state.requestURL && this.state.requestURL.length)} type="button" className="btn btn-success" onClick={this.newRequest.bind(this)}>
 									<span className="glyphicon glyphicon-send"></span> &nbsp;
 								</button>
@@ -264,11 +288,26 @@ export default class New extends React.Component{
 
 
 
-							<div className="col-xs-6">
-								<button type="button" className="btn btn-primary" onClick={this.addParams.bind(this,'headers')}>
-									<span className="glyphicon glyphicon-plus-sign"></span> &nbsp;
-									Headers
-								</button>
+							<div className="col-xs-10">
+								<div className="col-xs-6">
+									<button type="button" className="btn btn-primary" onClick={this.addParams.bind(this,'headers')}>
+										<span className="glyphicon glyphicon-plus-sign"></span> &nbsp;
+										Headers
+									</button>
+								</div>
+
+
+								<div className="col-xs-6">
+									<button type="button" className="btn btn-warning" onClick={this.addParams.bind(this,'params')}>
+										<span className="glyphicon glyphicon-plus-sign"></span> &nbsp;
+										Parameters
+									</button>
+								
+								</div>
+								
+
+								
+
 							</div>
 
 						</div>

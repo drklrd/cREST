@@ -73,3 +73,11 @@ body * {
 	background-color: #d3d3d3;
 	padding: 7px;
 }
+
+.react-datalist-option{
+	width: 100% !important;
+}
+
+.react-datalist{
+	max-height: 250px !important;
+}
