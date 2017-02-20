@@ -52,7 +52,7 @@ export default class History extends React.Component{
             this.setState({
                 isCopied : false
             });
-        }.bind(this),1000)
+        }.bind(this),2000)
     }
 
     render(){
@@ -94,7 +94,7 @@ export default class History extends React.Component{
 
         if(this.state.isCopied) {
             var copiedtag = <span className="request-copied">
-                                The Request has been successfully copied to you clipboard.
+                                The Request has been successfully copied to your clipboard.
                             </span>
         }
 
