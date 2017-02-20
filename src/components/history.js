@@ -66,7 +66,7 @@ export default class History extends React.Component{
                             {history.url}
 
                         </td>
-                        <td> {history.method} </td>
+                        <td> {history.method.toUpperCase()} </td>
                         <td> {history && history.params &&  Object.keys(history.params).length ? 'Yes' : 'No'} </td>
                         <td> {history && history.headers && Object.keys(history.headers).length ? 'Yes' : 'No'} </td>
                         <td>
