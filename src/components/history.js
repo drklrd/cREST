@@ -21,6 +21,9 @@ export default class History extends React.Component{
             }else{
                 var arr = result.requests;
             }
+
+            arr.reverse();
+            
             this.setState({
                 history : arr
             });
