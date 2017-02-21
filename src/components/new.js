@@ -8,7 +8,6 @@ import ApiCall from '../utils/api-call';
 import _ from 'underscore';
 import ReactDatalist from 'react-datalist';
 
-var options = ['apple','orange','pear','pineapple','melon']
 
 export default class New extends React.Component{
 
@@ -65,6 +64,9 @@ export default class New extends React.Component{
 				var arr = result.requests;
 			}
 
+			arr.reverse();
+
+
 			this.setState({
 				previousUrls : arr.map(function(request){
 					return request.url;
@@ -77,8 +79,8 @@ export default class New extends React.Component{
 	newRequest(){
 
 		this.setState({
-			groupOpenHeader : !this.state.groupOpenHeader,
-			groupOpenParameter : !this.state.groupOpenParameter
+			groupOpenHeader : false,
+			groupOpenParameter : false
 		})
 
 		if( !(this.state.requestURL && this.state.requestURL.length) ) return;
